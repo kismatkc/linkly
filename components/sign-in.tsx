@@ -4,6 +4,9 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
+import { Api } from "@/lib/utils";
+import { toast } from "sonner";
+import { signIn, useSession } from "next-auth/react";
 
 function SignIn() {
   const router = useRouter();
@@ -13,8 +16,12 @@ function SignIn() {
     formState: { errors },
   } = useForm<SignInForm>();
 
-  const onSubmit = (data: SignInForm) => {
-    if (data) router.push("/");
+  const onSubmit = async (data: SignInForm) => {
+    try {
+      console.log(data);
+    } catch (error: any) {
+      toast.error("Please try again");
+    }
   };
 
   return (

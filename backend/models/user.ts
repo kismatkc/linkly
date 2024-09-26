@@ -1,14 +1,13 @@
-import {Document, Model, Schema} from "mongoose";
-export interface userType  {
+import mongoose, { Document, Schema } from "mongoose";
+import bcrypt from "bcrypt";
+export interface userType {
   firstName: string;
   lastName: string;
   email: string;
   password: string;
-};
+}
 
-
-
-const USERSCHEMA = new Schema<userType   & Document>({
+const USERSCHEMA = new Schema<userType & Document>({
   firstName: {
     type: String,
     required: true,
@@ -25,10 +24,24 @@ const USERSCHEMA = new Schema<userType   & Document>({
   password: {
     type: String,
     required: true,
+  },
+});
+
+USERSCHEMA.pre("save", async function (next) {
+  const user = this as unknown as userType & Document;
+  if (!user.isModified("password")) {
+    return next();
   }
-})
 
+  try {
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(user.password, salt);
+    next();
+  } catch (error: any) {
+    next(error);
+  }
+});
 
-const User= new Model("User", "USERSCHEMA")
+const User = mongoose.model<userType & Document>("User", USERSCHEMA);
 
 export default User;

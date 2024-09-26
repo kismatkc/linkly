@@ -4,7 +4,9 @@ import Link from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "./ui/button";
-import {Api} from "@/lib/utils";
+import { Api } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 function SignUp() {
   const {
@@ -12,13 +14,14 @@ function SignUp() {
     handleSubmit,
     formState: { errors },
   } = useForm<SignUpForm>();
-
-  const onSubmit = async(data: SignUpForm) => {
-   const response= await Api.post("/create-user", data)
-    if(response.status === 200){
-      console.log(response.data);
+  const router = useRouter();
+  const onSubmit = async (data: SignUpForm) => {
+    try {
+      const response = await Api.post("/create-user", data);
+      if (response.data) router.push("/sign-in");
+    } catch (error: any) {
+      toast.error("Account creation failed please try again");
     }
-    
   };
 
   return (
@@ -148,7 +151,7 @@ function SignUp() {
         </label>
         {errors.password && <p>{errors.password.message}</p>}
       </div>
-      <Button className="bg-brand-grey-lite rounded-full md:max-w-[40%]  " >
+      <Button className="bg-brand-grey-lite rounded-full md:max-w-[40%]  ">
         Create an account
       </Button>
     </form>
