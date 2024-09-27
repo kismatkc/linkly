@@ -1,15 +1,11 @@
-"use client";
 import { SignInForm } from "@/types/";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "./ui/button";
-import { useRouter } from "next/navigation";
-import { Api } from "@/lib/utils";
 import { toast } from "sonner";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
 function SignIn() {
-  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -17,8 +13,16 @@ function SignIn() {
   } = useForm<SignInForm>();
 
   const onSubmit = async (data: SignInForm) => {
+    
     try {
-      console.log(data);
+
+      const response = await signIn("credentials", {
+        redirect: true,
+        email: data.email,
+        password: data.password,
+        callbackUrl: "/"
+      });
+      // if (response?.ok) router.push("/");
     } catch (error: any) {
       toast.error("Please try again");
     }
@@ -26,7 +30,10 @@ function SignIn() {
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={
+       
+        handleSubmit(onSubmit)
+      }
       className=" w-full  p-12 flex flex-col gap-y-4 [&>div]:gap-y-2 [&>div>input]:py-1 [&>div>input]:pl-4  md:[&>div>input]:max-w-[40%] "
     >
       <div className="flex justify-between items-center">
