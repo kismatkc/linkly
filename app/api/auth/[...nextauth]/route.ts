@@ -27,7 +27,7 @@ export const authOptions: NextAuthOptions = {
                 if (!user) return null
                 return user;
             } catch (error) {
-                throw new Error("invlaid email and password")
+                // throw new Error("invlaid email and password")
             }
         },
 

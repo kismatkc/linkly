@@ -5,25 +5,30 @@ import { Button } from "./ui/button";
 import { toast } from "sonner";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
 function SignIn() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    reset,
+    formState: { errors,isValid },
   } = useForm<SignInForm>();
-
+  const router = useRouter();
   const onSubmit = async (data: SignInForm) => {
     try {
       const response = await signIn("credentials", {
-        redirect: true,
+        redirect: false,
         email: data.email,
         password: data.password,
-        callbackUrl: "/",
       });
-      // if (response?.ok) router.push("/");
+      if (response?.ok) {
+       return router.push("/");
+      }
+      throw new Error("Invalid credentials!");
     } catch (error: any) {
-      toast.error("Please try again");
+    reset({password: ""})
+      toast.error(error.message!);
     }
   };
 
@@ -83,7 +88,7 @@ function SignIn() {
         {errors.password && <p>{errors.password.message}</p>}
       </div>
 
-      <Button className="bg-brand-grey-lite rounded-full md:max-w-[40%]  ">
+      <Button className="bg-brand-grey-lite rounded-full md:max-w-[40%] " disabled={!isValid}>
         Log in
       </Button>
     </form>
