@@ -5,7 +5,7 @@
   "description": "This is the backend for LInkly",
   "main": "server.ts",
   "scripts": {
-    "dev": "nodemon"
+    "dev": "npm i && nodemon"
   },
   "author": "kismat kc",
   "license": "ISC",

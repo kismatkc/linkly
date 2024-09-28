@@ -1,3 +1,4 @@
+"use client"
 import { LogOut } from "lucide-react";
 import React from "react";
 import { ThemeToggle } from "./theme-toggle";

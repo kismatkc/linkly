@@ -3,6 +3,7 @@ import { AxiosResponse } from "axios";
 import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions: NextAuthOptions = {
     providers: [CredentialsProvider({
@@ -31,6 +32,9 @@ export const authOptions: NextAuthOptions = {
         },
 
 
+    }),GoogleProvider({
+        clientId: process.env.GOOGLE_CLIENT_ID!,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET!
     })],
     session: {
         strategy: "jwt"
