@@ -19,7 +19,7 @@ const Account = () => {
         variant="outline"
         className="rounded-full flex-row-center w-full"
         onClick={() => {
-          signIn("google",{callbackUrl: "/"});
+          signIn("google", { callbackUrl: "/" });
         }}
       >
         <figure className="flex-row-center gap-x-2">
