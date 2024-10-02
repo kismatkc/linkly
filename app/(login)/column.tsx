@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 import { DesktopHistoryTableColumn } from "@/types/index";
+import CopyToClipboard from "@/components/copyToClipboard";
 
 const columns: ColumnDef<DesktopHistoryTableColumn>[] = [
   {
@@ -17,7 +18,7 @@ const columns: ColumnDef<DesktopHistoryTableColumn>[] = [
       return (
         <div className="flex justify-between ">
           <span className="text-nowrap">{shortLink}</span>
-          <CopyIcon className="cursor-pointer ml-5" />
+          <CopyToClipboard text={shortLink}/>
         </div>
       );
     },

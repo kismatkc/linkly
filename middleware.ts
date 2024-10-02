@@ -25,10 +25,10 @@ export default withAuth(function middleware(req: NextRequest) {
 
 
 export const config = {
-    // matcher: [
-    //     "/((?!api|_next/static|_next/image|favicon.ico|icons|account|sign-in).*)",
-    // ],
     matcher: [
-        "/hello"
-    ]
+        "/((?!api|_next/static|_next/image|favicon.ico|icons|account|sign-in).*)",
+    ],
+    // matcher: [
+    //     "/hello"
+    // ]
 };
