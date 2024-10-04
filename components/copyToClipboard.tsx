@@ -17,7 +17,7 @@ const CopyToClipboard = ({ text }: { text: string }) => {
   return (
     <div className="relative">
       {hover && (
-        <span className="absolute -top-[25px] left-3 z-50 ">
+        <span className="absolute -top-[22px] left-3 z-50 ">
           {isCopied ? "Copied" : "Copy"}
         </span>
       )}

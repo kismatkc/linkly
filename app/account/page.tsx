@@ -1,7 +1,9 @@
+"use client"
 import SignUp from "@/components/signup-form";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React from "react";
+import { signIn } from "next-auth/react";
 
 const Account = () => {
   return (
@@ -13,7 +15,9 @@ const Account = () => {
         <span className="mx-2">OR</span>
         <span className="border-t-2 grow border-dashed"></span>
       </div>
-      <Button variant="outline" className="rounded-full flex-row-center w-full">
+      <Button variant="outline" className="rounded-full flex-row-center w-full"  onClick={() => {
+          signIn("google", { callbackUrl: "/" });
+        }}>
         <figure className="flex-row-center gap-x-2">
           <Image
             alt="google icon"

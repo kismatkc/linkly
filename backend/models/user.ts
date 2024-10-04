@@ -4,7 +4,8 @@ export interface userType {
   firstName: string;
   lastName: string;
   email: string;
-  password: string;
+  password?: string;
+  googleId?: number
 }
 
 const USERSCHEMA = new Schema<userType & Document>({
@@ -23,8 +24,13 @@ const USERSCHEMA = new Schema<userType & Document>({
   },
   password: {
     type: String,
-    required: true,
+    required: false,
+  
   },
+  googleId: {
+    type: Number,
+    required: false,
+  }
 });
 
 USERSCHEMA.pre("save", async function (next) {

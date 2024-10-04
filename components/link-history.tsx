@@ -2,10 +2,11 @@
 import MobileHistoryTable from "./mobile-view-history";
 import { useMediaQuery } from "react-responsive";
 
-import columns from "@/app/(login)/column";
-import { DataTable } from "@/app/(login)/data-table";
+
 import { LinkDetailsProps } from "@/types/";
 import { useEffect, useState } from "react";
+import columns from "@/app/(root)/columns";
+import { DataTable } from "@/app/(root)/data-table";
 
 const LinkHistory = ({ linkDetails }: { linkDetails: LinkDetailsProps[] }) => {
   const [onClient, setOnClient] = useState<boolean>(false);

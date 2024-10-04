@@ -1,10 +1,23 @@
+"use client";
 import { ArrowRightCircleIcon, Link } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AutoPasteClipboardToggle from "./auto-paste-clipboard";
 import LinkHistory from "./link-history";
 import { LinkDetailsProps } from "@/types/";
 
+
 const Main = ({ linkDetails }: { linkDetails: LinkDetailsProps[] }) => {
+  const [checkedState, setCheckedState] = useState<boolean>(false);
+   const [textFromClipboard, setTextFromClipboard] = useState<string>("");
+  useEffect(()=>{
+    const getTextFromClipboard = async () => {
+      const text = await navigator.clipboard.readText();
+      if(checkedState && text){
+      setTextFromClipboard(text)
+      }
+    };
+    getTextFromClipboard();
+  },[checkedState])
   return (
     <main className="flex-column-center">
       <section className="flex flex-col gap-y-8 ">
@@ -22,6 +35,13 @@ const Main = ({ linkDetails }: { linkDetails: LinkDetailsProps[] }) => {
             <Link />
           </div>
           <input
+            value={textFromClipboard}
+            onChange={(e)=>{
+          
+             console.log(e.target.value)
+             setTextFromClipboard(e.target.value)
+           
+            }}
             className="border rounded-full grow text-center md:text-xl z-10 max-w-md"
             placeholder="Enter the link here"
           ></input>
@@ -32,7 +52,7 @@ const Main = ({ linkDetails }: { linkDetails: LinkDetailsProps[] }) => {
             strokeWidth={1}
           />
         </div>
-        <AutoPasteClipboardToggle />
+        <AutoPasteClipboardToggle setCheckedState={setCheckedState} />
         <p className="text-lg p-4 text-center md:text-xl">
           You can create&nbsp;
           <span className="text-brand-pink font-semibold">05</span> more

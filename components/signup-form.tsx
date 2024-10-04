@@ -12,7 +12,8 @@ function SignUp() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors,isValid },
+    
   } = useForm<SignUpForm>();
   const router = useRouter();
   const onSubmit = async (data: SignUpForm) => {
@@ -151,7 +152,7 @@ function SignUp() {
         </label>
         {errors.password && <p>{errors.password.message}</p>}
       </div>
-      <Button className="bg-brand-grey-lite rounded-full md:max-w-[40%]  ">
+      <Button className="bg-brand-grey-lite rounded-full md:max-w-[40%]  " disabled={!isValid}>
         Create an account
       </Button>
     </form>

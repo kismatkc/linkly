@@ -11,7 +11,7 @@ export type DesktopHistoryTableColumn = {
   shortLink: string;
   originalLink: string;
   qrCode: string;
-  clicks: number;
+
   status: string;
   date: Date;
 };
