@@ -22,8 +22,8 @@ export const authOptions: NextAuthOptions = {
                     password: credentials.password
                 })
                 const user = response.data.user
-                console.log("user from route",user);
-                
+                console.log("user from route", user);
+
                 if (!user) return null
                 return user;
             } catch (error) {
@@ -32,13 +32,66 @@ export const authOptions: NextAuthOptions = {
         },
 
 
-    }),GoogleProvider({
+    }), GoogleProvider({
         clientId: process.env.GOOGLE_CLIENT_ID!,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET!
     })],
     session: {
         strategy: "jwt"
     },
+    callbacks: {
+        async signIn(params) {
+
+            if (!params) return false;
+            if (!(params?.account?.provider)) {
+                try {
+                    const { email } = params;
+                    const userExist = await Api.post("/check-user", { email })
+return true
+                } catch (error) {
+                    const response = await Api.post("/create-user",params);
+
+                }
+            }
+
+            //@ts-ignore
+            const firstName = params.profile?.given_name;
+            //@ts-ignore
+            const lastName = params.profile?.family_name;
+
+            const email = params.profile?.email;
+            const googleId = params.user.id;
+            try {
+
+
+                const userExist = await Api.post("/check-user", { email })
+
+                return true
+
+
+            } catch (error) {
+                const response = await Api.post("/create-user", { firstName, lastName, email, googleId });
+                return true
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        },
+    }
 
 }
 

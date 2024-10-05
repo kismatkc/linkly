@@ -5,7 +5,7 @@ export interface userType {
   lastName: string;
   email: string;
   password: string;
-  googleId?: number
+  googleId: String
 }
 
 const USERSCHEMA = new Schema<userType & Document>({
@@ -21,11 +21,15 @@ const USERSCHEMA = new Schema<userType & Document>({
     type: String,
     required: true,
     unique: true,
+    index: true
   },
   password: {
     type: String,
     required: false,
-  
+
+  },googleId: {
+    type: String,
+    required: false
   }
 });
 

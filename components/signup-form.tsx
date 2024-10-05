@@ -12,14 +12,13 @@ function SignUp() {
   const {
     register,
     handleSubmit,
-    formState: { errors,isValid },
-    
+    formState: { errors, isValid },
   } = useForm<SignUpForm>();
   const router = useRouter();
   const onSubmit = async (data: SignUpForm) => {
     try {
       const response = await Api.post("/create-user", data);
-      if (response.data) router.push("/sign-in");
+      if (response.data) router.push("/log-in");
     } catch (error: any) {
       toast.error("Account creation failed please try again");
     }
@@ -152,7 +151,10 @@ function SignUp() {
         </label>
         {errors.password && <p>{errors.password.message}</p>}
       </div>
-      <Button className="bg-brand-grey-lite rounded-full md:max-w-[40%]  " disabled={!isValid}>
+      <Button
+        className="bg-brand-grey-lite rounded-full md:max-w-[40%]  "
+        disabled={!isValid}
+      >
         Create an account
       </Button>
     </form>

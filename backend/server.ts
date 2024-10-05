@@ -1,9 +1,10 @@
 import dotenv from "dotenv";
 import express, { Request, Response } from "express";
 import CORS from "cors";
-import { connectToDatabase, ensureDatabaseConnection } from "./lib/util.ts";
+import {  ensureDatabaseConnection } from "./lib/util.ts";
 import createUserRoute from "./routes/create-user-route.ts";
 import authenticateUserRoute from "./routes/authenticate-user-route.ts";
+import checkUserRoute from "./routes/check-user-route.ts"
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ ensureDatabaseConnection();
 
 app.use("/api", createUserRoute);
 app.use("/api", authenticateUserRoute);
+app.use("/api", checkUserRoute);
 
 app.use((err: any, req: Request, res: Response, next: any) => {
   console.log(err);

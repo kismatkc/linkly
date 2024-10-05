@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 // You can use a Zod schema here if you want.
 import { DesktopHistoryTableColumn } from "@/types/index";
 import CopyToClipboard from "@/components/copyToClipboard";
+import UrlQrcode from "@/components/url-qrcode";
 
 const columns: ColumnDef<DesktopHistoryTableColumn>[] = [
   {
@@ -37,6 +38,9 @@ const columns: ColumnDef<DesktopHistoryTableColumn>[] = [
   {
     accessorKey: "qrCode",
     header: "QR Code",
+    cell: ({row})=> {
+      const url: string = row.getValue("qrCode");
+      return <UrlQrcode url={url}  />}
   },
   {
     accessorKey: "date",
