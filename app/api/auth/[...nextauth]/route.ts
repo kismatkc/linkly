@@ -1,9 +1,12 @@
 import { Api } from "@/lib/utils";
 import { AxiosResponse } from "axios";
-import { NextAuthOptions } from "next-auth";
+import { NextAuthOptions, Session } from "next-auth";
+import { JWT } from "next-auth/jwt";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
+
+
 
 export const authOptions: NextAuthOptions = {
     providers: [CredentialsProvider({
@@ -47,9 +50,9 @@ export const authOptions: NextAuthOptions = {
                 try {
                     const { email } = params;
                     const userExist = await Api.post("/check-user", { email })
-return true
+                    return true
                 } catch (error) {
-                    const response = await Api.post("/create-user",params);
+                    const response = await Api.post("/create-user", params);
 
                 }
             }
@@ -74,23 +77,20 @@ return true
                 return true
             }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         },
+        async jwt({ token, user }) {
+    
+            //@ts-ignore
+            if (user?.firstName) {
+                //@ts-ignore
+                token.name = user.firstName
+
+                return token
+
+            }
+            return token
+
+        }
     }
 
 }

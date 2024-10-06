@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 
 export default async function authenticateUser(req: Request, res: Response) {
   const { email, password } = req.body;
-  console.log(email,password);
+
   
 
   try {
@@ -12,6 +12,8 @@ export default async function authenticateUser(req: Request, res: Response) {
     if (!user) return res.status(401).send("Invalid credentials");
     const isMatch = await bcrypt.compare(password, user.password);
     if (isMatch) {
+      console.log(user);
+      
       return res.status(200).json({  user });
     } else {
       return res.status(401).json({ message: "Authentication failed" });

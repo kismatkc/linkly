@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} antialiased lg:flex-row-center`}>
+      <body className={`${inter.className} antialiased lg:flex-row-center `}>
         {children}
         <Toaster richColors />
       </body>

@@ -8,18 +8,19 @@ import { LinkDetailsProps } from "@/types/";
 
 const Main = ({ linkDetails }: { linkDetails: LinkDetailsProps[] }) => {
   const [checkedState, setCheckedState] = useState<boolean>(false);
-   const [textFromClipboard, setTextFromClipboard] = useState<string>("");
-  useEffect(()=>{
+  const [textFromClipboard, setTextFromClipboard] = useState<string>("");
+  useEffect(() => {
     const getTextFromClipboard = async () => {
       const text = await navigator.clipboard.readText();
-      if(checkedState && text){
-      setTextFromClipboard(text)
+      if (checkedState && text) {
+        setTextFromClipboard(text);
       }
     };
     getTextFromClipboard();
-  },[checkedState])
+  }, [checkedState]);
   return (
-    <main className="flex-column-center">
+    <section className="flex-column-center">
+    
       <section className="flex flex-col gap-y-8 ">
         <div className="flex-column-center md:text-5xl">
           <h1 className="gradient-styling text-nowrap">Shorten Your</h1>
@@ -36,11 +37,9 @@ const Main = ({ linkDetails }: { linkDetails: LinkDetailsProps[] }) => {
           </div>
           <input
             value={textFromClipboard}
-            onChange={(e)=>{
-          
-             console.log(e.target.value)
-             setTextFromClipboard(e.target.value)
-           
+            onChange={(e) => {
+              console.log(e.target.value);
+              setTextFromClipboard(e.target.value);
             }}
             className="border rounded-full grow text-center md:text-xl z-10 max-w-md"
             placeholder="Enter the link here"
@@ -65,7 +64,7 @@ const Main = ({ linkDetails }: { linkDetails: LinkDetailsProps[] }) => {
       </section>
 
       <LinkHistory linkDetails={linkDetails} />
-    </main>
+    </section>
   );
 };
 
