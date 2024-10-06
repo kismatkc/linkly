@@ -8,7 +8,7 @@ import GoogleProvider from "next-auth/providers/google";
 
 
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
     providers: [CredentialsProvider({
         name: "credentials",
         credentials: {
@@ -79,7 +79,7 @@ export const authOptions: NextAuthOptions = {
 
         },
         async jwt({ token, user }) {
-    
+
             //@ts-ignore
             if (user?.firstName) {
                 //@ts-ignore
